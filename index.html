@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gurukool Study</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#f2f2f2;
+  text-align:center;
+}
+
+/* HEADER */
+header{
+  background:#1e3c72;
+  color:white;
+  padding:15px;
+  font-size:20px;
+  font-weight:bold;
+  position:relative;
+}
+
+/* MENU */
+.menu{
+  position:absolute;
+  right:12px;
+  top:10px;
+  font-size:22px;
+  cursor:pointer;
+}
+
+.dropdown{
+  display:none;
+  position:absolute;
+  right:0;
+  top:30px;
+  background:#222;
+  border-radius:6px;
+  padding:6px;
+  box-shadow:0 3px 8px rgba(0,0,0,0.4);
+}
+
+.dropdown a{
+  display:block;
+  color:white;
+  text-decoration:none;
+  padding:6px 10px;
+  font-size:13px;
+}
+
+/* SEARCH (UPAR) */
+.search-box{
+  margin:20px;
+}
+
+.search-box input{
+  width:85%;
+  padding:12px;
+  border-radius:25px;
+  border:1px solid #ccc;
+  font-size:16px;
+}
+
+/* SUBJECT BOX */
+#subjectList{
+  display:none;
+  margin:20px;
+  max-height:400px;
+  overflow-y:auto;
+}
+
+.subject-card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  text-align:left;
+}
+
+.subject-card button{
+  background:blue;
+  color:white;
+  border:none;
+  padding:6px 12px;
+  border-radius:6px;
+  font-size:12px;
+  cursor:pointer;
+}
+
+/* DETAILS BOX (WHITE) */
+.details{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  margin:20px;
+  text-align:left;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* YELLOW BOX (INSTRUCTIONS & SUPPORT) */
+.yellow-box{
+  background:yellow;
+  color:black;
+  padding:15px;
+  border-radius:10px;
+  margin:20px;
+  text-align:left;
+}
+
+.yellow-box h2{
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+📚 Gurukool Study 🎓
+<div class="menu" onclick="toggleMenu()">☰
+  <div class="dropdown" id="dropdownMenu">
+    <a href="sms:9102235053">WhatsApp 9102235053</a>
+    <a href="sms:7033730195">WhatsApp 7033730195</a>
+    <a href="https://www.instagram.com/gurukool2026">Instagram</a>
+  </div>
+</div>
+</header>
+
+<!-- SEARCH (UPAR) -->
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Search subject like Physics, Hindi..." onkeyup="searchSubject()">
+</div>
+
+<!-- SEARCH RESULT BOX -->
+<div id="subjectList">
+
+<div class="subject-card">
+<h3>Physics Notes</h3>
+<p>Price: ₹49</p>
+<button onclick="payNow('Physics',49)">Buy</button>
+</div>
+
+<div class="subject-card">
+<h3>Chemistry Notes</h3>
+<p>Price: ₹49</p>
+<button onclick="payNow('Chemistry',49)">Buy</button>
+</div>
+
+<div class="subject-card">
+<h3>Biology Notes</h3>
+<p>Price: ₹49</p>
+<button onclick="payNow('Biology',49)">Buy</button>
+</div>
+
+<div class="subject-card">
+<h3>PCM Bundle</h3>
+<p>Price: ₹149</p>
+<button onclick="payNow('PCM Bundle',149)">Buy Bundle</button>
+</div>
+
+</div>
+
+<!-- DETAILS (WHITE) -->
+<div class="details">
+<h2>📘 Website Details</h2>
+<p>
+Gurukool Study me PCM, PCB, Arts ke notes milte hain.<br>
+Board exam oriented notes.<br>
+Payment UPI se hota hai.<br>
+PDF delivery after verification.
+</p>
+</div>
+
+<!-- INSTRUCTIONS (YELLOW) -->
+<div class="yellow-box">
+<h2>📌 How to Buy Notes</h2>
+<p>
+1️⃣ Subject select karo<br>
+2️⃣ Buy button click karo<br>
+3️⃣ UPI payment karo<br>
+4️⃣ Screenshot lo<br>
+5️⃣ Send screenshot on WhatsApp<br>
+6️⃣ Verification ke baad PDF link milega
+</p>
+</div><div class="yellow-box">
+<h2>📧 Gmail Support</h2>
+<p>
+Email: ranikumari553812@gmail.com<br>
+For notes & support message send karo.
+</p>
+</div>
+
+<!-- SUPPORT (YELLOW) -->
+<div class="yellow-box">
+<h2>📞 Support</h2>
+<p>
+Screenshot send karo:<br>
+WhatsApp: 9102235053<br>
+WhatsApp
+</p>
+</div>
+
+<script>
+// MENU TOGGLE
+function toggleMenu(){
+  let menu = document.getElementById("dropdownMenu");
+  menu.style.display = (menu.style.display === "block") ? "none" : "block";
+}
+
+window.onclick = function(event){
+  if(!event.target.closest('.menu')){
+    document.getElementById("dropdownMenu").style.display = "none";
+  }
+}
+
+// SEARCH FUNCTION
+function searchSubject(){
+  let input = document.getElementById("searchInput").value.toLowerCase();
+  let list = document.getElementById("subjectList");
+  let cards = list.getElementsByClassName("subject-card");
+
+  let found = false;
+
+  for(let i=0;i<cards.length;i++){
+    let text = cards[i].innerText.toLowerCase();
+    if(input !== "" && text.includes(input)){
+      cards[i].style.display = "block";
+      found = true;
+    } else {
+      cards[i].style.display = "none";
+    }
+  }
+
+  if(found){
+    list.style.display = "block";
+    list.scrollIntoView({behavior:"smooth"});
+  } else {
+    list.style.display = "none";
+  }
+}
+
+// PAYMENT FUNCTION
+function payNow(subject, amount){
+  let upi = "ranikumari553812@okhdfcbank";
+  let name = "Gurukool Study";
+  let note = subject + " Notes";
+
+  let url = "upi://pay?pa=" + upi + "&pn=" + name + "&am=" + amount + "&cu=INR&tn=" + encodeURIComponent(note);
+  window.location.href = url;
+
+  alert("Payment window opened. After payment send screenshot on WhatsApp for verification.");
+}
+</script>
+
+</body>
+</html>
